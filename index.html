@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venice.ai Generator - Dracula Edition</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Created by Faye Håkansdotter -->
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>Venice.ai</h1>
+                <span class="version">Dracula Edition</span>
+            </div>
+            <div class="api-keys-section">
+                <div class="api-key-group">
+                    <h3>Primary API Keys</h3>
+                    <div class="api-key-container">
+                        <label for="venice-key">Venice.ai API Key</label>
+                        <input type="password" id="venice-key" placeholder="Enter Venice.ai API Key">
+                        <button class="toggle-visibility" onclick="togglePasswordVisibility('venice-key')">👁️</button>
+                    </div>
+                    <div class="api-key-container">
+                        <label for="gemini-key">Google Gemini API Key</label>
+                        <input type="password" id="gemini-key" placeholder="Enter Google Gemini API Key">
+                        <button class="toggle-visibility" onclick="togglePasswordVisibility('gemini-key')">👁️</button>
+                    </div>
+                </div>
+                <div class="api-key-group">
+                    <h3>Fallback API Keys</h3>
+                    <div class="api-key-container">
+                        <label for="venice-key-fallback">Venice.ai Fallback Key</label>
+                        <input type="password" id="venice-key-fallback" placeholder="Enter Fallback Venice.ai API Key">
+                        <button class="toggle-visibility" onclick="togglePasswordVisibility('venice-key-fallback')">👁️</button>
+                    </div>
+                    <div class="api-key-container">
+                        <label for="gemini-key-fallback">Gemini Fallback Key</label>
+                        <input type="password" id="gemini-key-fallback" placeholder="Enter Fallback Gemini API Key">
+                        <button class="toggle-visibility" onclick="togglePasswordVisibility('gemini-key-fallback')">👁️</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Panel - Image Generation -->
+            <section class="left-panel">
+                <div class="panel-header">
+                    <h2>Image Generation</h2>
+                    <div class="model-selector">
+                        <select id="image-model" title="Select image generation model">
+                            <option value="lustify-sdxl">Lustify SDXL</option>
+                            <option value="hidream">HiDream</option>
+                            <option value="flux-dev">Flux Dev</option>
+                            <option value="flux-schnell">Flux Schnell</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="prompt">Prompt</label>
+                    <textarea id="prompt" placeholder="Describe your image..." rows="4"></textarea>
+                    <button class="gemini-assist-btn" onclick="openGeminiAssist()">🤖 AI Prompt Assistant</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="negative-prompt">Negative Prompt</label>
+                    <textarea id="negative-prompt" placeholder="What should NOT be in the image..." rows="2"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="aspect-ratio">Aspect Ratio</label>
+                        <select id="aspect-ratio">
+                            <option value="square">Square (1024x1024)</option>
+                            <option value="tall" selected>Tall (768x1024)</option>
+                            <option value="wide">Wide (1024x768)</option>
+                        </select>
+                    </div>
+                    <div class="form-group half">
+                        <label for="num-images">Number of Images</label>
+                        <select id="num-images">
+                            <option value="1" selected>1 Image</option>
+                            <option value="2">2 Images</option>
+                            <option value="3">3 Images</option>
+                            <option value="4">4 Images</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="steps">Steps</label>
+                        <input type="range" id="steps" min="1" max="50" value="25">
+                        <span class="range-value" id="steps-value">25</span>
+                    </div>
+                    <div class="form-group half">
+                        <label for="cfg-scale">CFG Scale</label>
+                        <input type="range" id="cfg-scale" min="1" max="20" step="0.1" value="7.0">
+                        <span class="range-value" id="cfg-value">7.0</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="seed">Seed (Optional)</label>
+                        <input type="number" id="seed" placeholder="Random if empty">
+                    </div>
+                    <div class="form-group half">
+                        <label for="output-format">Output Format</label>
+                        <select id="output-format">
+                            <option value="png">PNG</option>
+                            <option value="webp">WebP</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="image-style">Style Preset</label>
+                    <select id="image-style">
+                        <option value="none">None</option>
+                        <option value="3D Model">3D Model</option>
+                        <option value="Analog Film">Analog Film</option>
+                        <option value="Anime">Anime</option>
+                        <option value="Cinematic">Cinematic</option>
+                        <option value="Comic Book">Comic Book</option>
+                        <option value="Digital Art">Digital Art</option>
+                        <option value="Fantasy Art">Fantasy Art</option>
+                        <option value="Isometric">Isometric</option>
+                        <option value="Line Art">Line Art</option>
+                        <option value="Low Poly">Low Poly</option>
+                        <option value="Neon Punk">Neon Punk</option>
+                        <option value="Origami">Origami</option>
+                        <option value="Photographic">Photographic</option>
+                        <option value="Pixel Art">Pixel Art</option>
+                        <option value="Texture">Texture</option>
+                    </select>
+                </div>
+
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="auto-upscale" checked>
+                        <span class="checkmark"></span>
+                        Auto-upscale images
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="hide-watermark" checked>
+                        <span class="checkmark"></span>
+                        Hide watermark
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="safe-mode">
+                        <span class="checkmark"></span>
+                        Safe mode
+                    </label>
+                </div>
+
+                <button class="generate-btn" id="generate-btn" onclick="generateImages()">
+                    <span class="btn-text">Generate Images</span>
+                    <div class="loading-spinner hidden"></div>
+                </button>
+
+                <!-- Current Generation Display -->
+                <div class="current-generation hidden" id="current-generation">
+                    <h3>Generated Images</h3>
+                    <div class="images-grid" id="images-grid">
+                        <!-- Generated images will appear here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel - History & Gemini Assistant -->
+            <section class="right-panel">
+                <div class="panel-tabs">
+                    <button class="tab-btn active" onclick="switchTab('history')">History</button>
+                    <button class="tab-btn" onclick="switchTab('assistant')">AI Assistant</button>
+                </div>
+
+                <!-- History Tab -->
+                <div class="tab-content" id="history-tab">
+                    <div class="history-header">
+                        <h3>Generation History</h3>
+                        <button class="clear-history-btn" onclick="clearHistory()">Clear All</button>
+                    </div>
+                    <div class="history-grid" id="history-grid">
+                        <!-- History items will be populated here -->
+                    </div>
+                </div>
+
+                <!-- AI Assistant Tab -->
+                <div class="tab-content hidden" id="assistant-tab">
+                    <div class="assistant-header">
+                        <h3>AI Prompt Assistant</h3>
+                        <span class="powered-by">Powered by Gemini 2.5</span>
+                    </div>
+                    <div class="assistant-chat" id="assistant-chat">
+                        <!-- Chat messages will appear here -->
+                    </div>
+                    <div class="assistant-input">
+                        <textarea id="assistant-input-text" placeholder="Describe what kind of image you want, and I'll help you create the perfect prompt..." rows="3"></textarea>
+                        <button class="assistant-send-btn" onclick="sendToAssistant()">Send</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Gemini Assistant Modal -->
+        <div class="modal hidden" id="gemini-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>AI Prompt Assistant</h3>
+                    <button class="close-modal" onclick="closeGeminiAssist()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="assistant-chat-modal" id="assistant-chat-modal">
+                        <div class="assistant-message">
+                            <div class="message-content">
+                                <p>Hi! I'm your AI prompt assistant powered by Gemini 2.5. I can help you create amazing prompts for your image generation.</p>
+                                <p>Just describe what you want to create, and I'll help you craft the perfect prompt with optimal parameters!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assistant-input-modal">
+                        <textarea id="assistant-input-modal-text" placeholder="Tell me about the image you want to create..." rows="3"></textarea>
+                        <button class="assistant-send-btn" onclick="sendToAssistantModal()">
+                            <span class="btn-text">Generate Prompt</span>
+                            <div class="loading-spinner hidden"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Action Menu -->
+        <div class="image-action-menu hidden" id="image-action-menu">
+            <button class="action-btn" onclick="downloadImage()" title="Download">📥</button>
+            <button class="action-btn" onclick="upscaleImage()" title="Upscale">🔍</button>
+            <button class="action-btn" onclick="saveToHistory()" title="Save to History">💾</button>
+            <button class="action-btn" onclick="regenerateImage()" title="Regenerate (4 images)">🔄</button>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toast-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
