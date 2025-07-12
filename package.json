@@ -1,0 +1,47 @@
+{
+  "name": "venice-ai-generator",
+  "version": "2.0.0",
+  "description": "A comprehensive web application for generating high-quality images using the Venice.ai API, enhanced with AI-powered prompt optimization through Google Gemini 2.5",
+  "keywords": [
+    "venice-ai",
+    "image-generation",
+    "ai",
+    "gemini",
+    "prompt-engineering",
+    "web-app",
+    "javascript",
+    "html5",
+    "css3"
+  ],
+  "author": {
+    "name": "Faye Håkansdotter",
+    "email": "swings.toccata_3h@icloud.com",
+    "url": "https://github.com/Fayeblade1488"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fayeblade1488/venice-ai-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Fayeblade1488/venice-ai-generator/issues"
+  },
+  "homepage": "https://fayeblade1488.github.io/venice-ai-generator",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx serve .",
+    "dev": "npx live-server .",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
